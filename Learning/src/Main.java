@@ -1,4 +1,6 @@
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
@@ -33,11 +35,21 @@ public class Main {
             System.out.print(" mississipi ");
         }
         System.out.println("");
-        for (int i = 0; i < strArray.length; i++) {
-            System.out.print(strArray[i]);
+        for (String s : strArray) {
+            System.out.print(s);
             System.out.print(" tomato ");
         }
-        Scanner scanner;
 
+        // Strings and arrays are special
+        // - Most not special
+        String anotherString = "assign string directly";
+        double[] doubleArray = new double[9];
+
+        Scanner scanner = new Scanner();
+        ArrayList myGreatPythonList = new ArrayList();
+        LinkedList linkedList = new LinkedList();
+        
+        // Formula for assigning value to ref types
+        // [DataType] [varName] = new DataType(); <-- called a constructor
         }
     }
