@@ -12,3 +12,6 @@ Test
     - Reference types: null
 - Formula for assigning value to ref types
     - [DataType] [varName] = new DataType(); <-- called a constructor
+
+## New stuff
+- Switch statements
