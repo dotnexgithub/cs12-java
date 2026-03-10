@@ -45,10 +45,15 @@ public class Main {
         }
          */
 
-        // for loops
-        for (int i = 6; i < 10000000; i = i * i + 1) {
-            System.out.println(i);
+        String name = "H";
+        if (name == "H") {
+            System.out.println("Its equal");
         }
+
+        // for loops
+//        for (int i = 0; i < 10; ++i) {
+//            System.out.println(i);
+//        }
     }
     public static void dayOne() {
         // PRIMITIVES

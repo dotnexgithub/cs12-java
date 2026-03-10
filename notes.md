@@ -15,3 +15,4 @@ Test
 
 ## New stuff
 - Switch statements
+- Use .equals() for all reference types
