@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.ArrayList;
 
 public class Calculator {
+
+    // I had decided to take a look on methods
     public static float getValidFloat(Scanner scn, String prompt, String failPrompt) {
         System.out.print(prompt);
 
@@ -12,7 +14,7 @@ public class Calculator {
             System.out.println(failPrompt);
             System.out.print(prompt);
         }
-        return Float.parseFloat(scn.nextLine()); // Had to do this instead of nextFloat because of
+        return Float.parseFloat(scn.nextLine()); // Had to do this instead of .nextFloat() because of
         // https://medium.com/@kritishdhungel/java-scanner-trap-why-nextline-gets-skipped-after-nextint-and-how-to-fix-it-efd075304f22
     }
 
@@ -25,6 +27,7 @@ public class Calculator {
         float x, y;
         ArrayList<String> options = new ArrayList<>(Arrays.asList("1","2","3","4")); // I used arraylist as I did not
         // want to use ints with scanner and because ArrayList has the .contains() method
+        // Initialized with help from https://stackoverflow.com/a/2761019
 
         while (true) {
             // Main menu
@@ -33,7 +36,7 @@ public class Calculator {
             System.out.println("2 - Subtraction");
             System.out.println("3 - Multiplication");
             System.out.println("4 - Division \n");
-            System.out.println((!Float.isNaN(ans)) ? "[ANS] " + ans : "");
+            System.out.println((!Float.isNaN(ans)) ? "[ANS] " + ans : ""); // https://www.w3schools.com/java/java_conditions_shorthand.asp
 
             while (true) {
                 System.out.print("Enter your option: ");
