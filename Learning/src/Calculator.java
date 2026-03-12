@@ -1,8 +1,9 @@
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.ArrayList;
 
 public class Calculator {
-    static float getValidFloat(Scanner scn, String prompt, String failPrompt) {
+    public static float getValidFloat(Scanner scn, String prompt, String failPrompt) {
         System.out.print(prompt);
 
         while (!scn.hasNextFloat()) {
@@ -11,97 +12,71 @@ public class Calculator {
             System.out.println(failPrompt);
             System.out.print(prompt);
         }
-        return scn.nextFloat();
+        return Float.parseFloat(scn.nextLine()); // Had to do this instead of nextFloat because of
+        // https://medium.com/@kritishdhungel/java-scanner-trap-why-nextline-gets-skipped-after-nextint-and-how-to-fix-it-efd075304f22
     }
 
-    static int getValidInt(Scanner scn, String prompt, String failPrompt) {
-        System.out.print(prompt);
-
-        while (!scn.hasNextInt()) {
-            scn.next(); // consume invalid input
-
-            System.out.println(failPrompt);
-            System.out.print(prompt);
-        }
-        return scn.nextInt();
-    }
-
-    static void main(String[] args) {
-        // Write calculator program
+    public static void main(String[] args) {
         Scanner scn = new Scanner(System.in);
-//        String text = scn.nextLine(); // gets user str
-//        int number = scn.nextInt(); // gets user int
-//        float floatNum = scn.nextFloat();
 
         // Declarations
-        int sel;
-        float ans = -1; // prevent possible compilation issues
-        boolean showAns = false;
+        String sel;
+        float ans = Float.NaN;
+        float x, y;
+        ArrayList<String> options = new ArrayList<>(Arrays.asList("1","2","3","4")); // I used arraylist as I did not
+        // want to use ints with scanner and because ArrayList has the .contains() method
 
-        float x, y; // declare terms used in math operations
-        int[] options = {0, 1, 2, 3, 4};
-        String failPrompt = "Try again.";
         while (true) {
             // Main menu
             System.out.println("Operations:");
-            System.out.println("0 - Quit");
             System.out.println("1 - Addition");
             System.out.println("2 - Subtraction");
             System.out.println("3 - Multiplication");
             System.out.println("4 - Division \n");
-            System.out.println((showAns) ? "[ANS] " + ans : "");
-            if (!showAns) showAns = true;
+            System.out.println((!Float.isNaN(ans)) ? "[ANS] " + ans : "");
 
+            while (true) {
+                System.out.print("Enter your option: ");
+                sel = scn.nextLine();
+                if (options.contains(sel)) break;
+            };
 
-            do {
-                sel = getValidInt(scn, "Write the operation here: ", failPrompt);
-                if (Arrays.binarySearch(options, sel) < 0) {
-                    System.out.println(failPrompt); // hacky workaround but works for now
-                    }
+            // Get terms
+            x = getValidFloat(scn, "Enter first term: ", "Not a valid input.");
+
+            while (true) {
+                y = getValidFloat(scn, "Enter second term: ", "Not a valid input.");
+                if (sel.equals("4") && y == 0) {
+                    System.out.println("Cannot divide by 0.");
+                    continue;
                 }
-                while(Arrays.binarySearch(options, sel) < 0);
+                break;
+            }
 
+            // Used to determine what operations to do with terms
             switch(sel) {
-                case 0:
-                    System.exit(0);
-
-                case 1: // Addition
-                    x = getValidFloat(scn, "Enter first term: ", failPrompt);
-                    y = getValidFloat(scn, "Enter second term: ", failPrompt);
+                case "1": // Addition
                     ans = x + y;
-                    System.out.println("Result: " + ans);
                     break;
 
-                case 2: // Subtraction
-                    x = getValidFloat(scn, "Enter first term: ", failPrompt);
-                    y = getValidFloat(scn, "Enter second term: ", failPrompt);
+                case "2": // Subtraction
                     ans = x - y;
-                    System.out.println("Result: " + ans);
                     break;
 
-                case 3: // Multiplication
-                    x = getValidFloat(scn, "Enter first term: ", failPrompt);
-                    y = getValidFloat(scn, "Enter second term: ", failPrompt);
+                case "3": // Multiplication
                     ans = x * y;
-                    System.out.println("Result: " + ans);
                     break;
 
-                case 4: // Division
-                    x = getValidFloat(scn, "Enter dividend: ", failPrompt);
-                    do {
-                        y = getValidFloat(scn, "Enter divisor: ", failPrompt);
-                        if (y == 0) {
-                            System.out.println("Divisor cannot be zero.");
-                        }
-                    } while (y == 0); // ugly but works
+                case "4": // Division
                     ans = x / y;
-                    System.out.println("Result: " + ans);
                     break;
 
                 default:
-                    System.out.print("default");
-                    break;
+                    System.out.print("Try again.");
+                    continue;
             }
+            System.out.println("Result: " + ans);
+            System.out.println("-----------");
         }
     }
 }
